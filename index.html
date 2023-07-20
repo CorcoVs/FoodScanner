@@ -4,15 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Barcode Scanner</title>
+    <title>foodBar</title>
   </head>
   <body>
-    <h1>Barcode Scanner</h1>
-    <video id="video" width="400" height="300" autoplay></video>
-    <button id="startBtn">Start Scanning</button>
-    <!-- Add the QuaggaJS library -->
+    <h1>Food Scanner</h1>
+    <div id="scanner">
+      <video id="video" width="400" height="300"></video>
+      <canvas id="canvas" width="400" height="300"></canvas>
+    </div>
+    <button id="startBtn">Scan</button>
+    <!-- QuaggaJS library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-
     <script src="script.js"></script>
   </body>
 </html>
