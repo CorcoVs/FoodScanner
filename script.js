@@ -52,5 +52,5 @@ function startScanner() {
   });
 }
 
-// Start scanning when the page loads
-document.addEventListener("DOMContentLoaded", startScanner);
+// Add event listener to start scanning when the button is clicked
+document.getElementById("startBtn").addEventListener("click", startScanner);
