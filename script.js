@@ -3,11 +3,35 @@ const canvas = document.getElementById("canvas");
 const scanner = document.getElementById("scanner");
 
 function handleScan(decodedData) {
-  // The rest of your handleScan() function remains the same
+  const barcode = decodedData;
+  const apiUrl = `https://world.openfoodfacts.net/api/v2/product/${barcode}`;
+
+      // Fetch product data using the scanned barcode
+    fetch(apiUrl)
+        .then((response) => response.json())
+        .then((json) => {
+            const productName = json.product.product_name;
+            console.log(`Product Name: ${productName}`);
+
+            const nutritionScore = json.product.nutriscore_score;
+            const nutriscoreGrade = json.product.nutriscore_grade;
+            console.log(
+                `Nutriscore ${nutritionScore}, grade ${nutriscoreGrade}`
+            );
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+        });
 }
 
 function startScanner() {
-  const constraints = { video: true };
+  const constraints = {
+    video: {
+      facingMode: "environment", // back camera
+      width: { ideal: 1280 }, 
+      height: { ideal: 720 }, 
+    },
+  };
 
   navigator.mediaDevices
     .getUserMedia(constraints)
