@@ -4,15 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="styles.css" />
     <title>foodBar</title>
   </head>
   <body>
     <h1>Food Scanner</h1>
     <div id="scanner">
-      <video id="video" width="400" height="300"></video>
-      <canvas id="canvas" width="400" height="300"></canvas>
+      <video id="video" width="1vw" height="400"></video>
+      <canvas id="canvas" width="1vw" height="400"></canvas>
     </div>
-    <button id="startBtn">Scan</button>
+    <div class="feedback">1234567891234</div>
+    <br />
+    <div class="container">
+      <button id="startBtn">Scan</button>
+    </div>
+    <div class="container">
+      <div class="status--text">Iddle</div>
+
+      <p class="score">Nutriscore:123</p>
+    </div>
     <!-- QuaggaJS library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <script src="script.js"></script>
