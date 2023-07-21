@@ -29,15 +29,14 @@ function handleScan(decodedData) {
     .then(json => {
       const productName = json.product.product_name;
       console.log(`Product Name: ${productName}`);
-
       nutritionScore = json.product.nutriscore_score;
       nutriscoreGrade = json.product.nutriscore_grade;
-      console.log(`Nutriscore ${nutritionScore}, grade ${nutriscoreGrade}`);
     })
 
     .catch(error => {
       console.error('Error fetching data:', error);
     });
+  displayMessage(barcode);
 }
 
 //Start Scanner
@@ -81,6 +80,7 @@ function startScanner() {
           Quagga.stop();
         });
       });
+      video.stop();
     })
     .catch(error => {
       console.error('Error accessing camera:', error);
@@ -93,7 +93,5 @@ const displayMessage = function () {
     '.score'
   ).textContent = `Nutrition score: ${nutritionScore}, Food grade: ${nutriscoreGrade}`;
 };
-
-displayMessage(barcode);
 
 document.getElementById('startBtn').addEventListener('click', startScanner);
