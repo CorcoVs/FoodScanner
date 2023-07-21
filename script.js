@@ -18,6 +18,7 @@ let scanStatus = document.querySelector('.status--text').textContent;
 let barcode;
 let nutritionScore;
 let nutriscoreGrade;
+let productName = '';
 
 const displayMessage = function () {
   document.querySelector(
@@ -34,7 +35,7 @@ function handleScan(decodedData) {
   fetch(apiUrl)
     .then(response => response.json())
     .then(json => {
-      const productName = json.product.product_name;
+      productName = json.product.product_name;
       nutritionScore = json.product.nutriscore_score;
       nutriscoreGrade = json.product.nutriscore_grade;
       document.querySelector('.feedback').textContent = barcode;
