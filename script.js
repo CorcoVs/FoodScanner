@@ -31,12 +31,14 @@ function handleScan(decodedData) {
       console.log(`Product Name: ${productName}`);
       nutritionScore = json.product.nutriscore_score;
       nutriscoreGrade = json.product.nutriscore_grade;
+
+  //Calling displayMessage to update
+      displayMessage(barcode);
     })
 
     .catch(error => {
       console.error('Error fetching data:', error);
     });
-  displayMessage(barcode);
 }
 
 //Start Scanner
