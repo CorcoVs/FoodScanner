@@ -14,13 +14,20 @@
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const scanner = document.getElementById('scanner');
-let status = document.querySelector('.status--text').textContent;
+let scanStatus = document.querySelector('.status--text').textContent;
 let barcode;
 let nutritionScore;
 let nutriscoreGrade;
 
+const displayMessage = function () {
+  document.querySelector(
+    '.score'
+  ).textContent = `${productName}: Nutrition score: ${nutritionScore}, Food grade: ${nutriscoreGrade}`;
+};
+
 function handleScan(decodedData) {
   barcode = decodedData;
+
   const apiUrl = `https://world.openfoodfacts.net/api/v2/product/${barcode}`;
 
   // Fetch product data using the scanned barcode
@@ -28,14 +35,15 @@ function handleScan(decodedData) {
     .then(response => response.json())
     .then(json => {
       const productName = json.product.product_name;
-      console.log(`Product Name: ${productName}`);
       nutritionScore = json.product.nutriscore_score;
       nutriscoreGrade = json.product.nutriscore_grade;
+      document.querySelector('.feedback').textContent = barcode;
 
-  //Calling displayMessage to update
-      displayMessage(barcode);
+      //Calling displayMessage to update
+      if (nutriscoreGrade && nutriscoreGrade) {
+        displayMessage();
+      }
     })
-
     .catch(error => {
       console.error('Error fetching data:', error);
     });
@@ -51,7 +59,7 @@ function startScanner() {
     },
   };
 
-  staus = 'Starting Scanner';
+  scanStatus = 'Starting Scanner';
 
   navigator.mediaDevices
     .getUserMedia(constraints)
@@ -78,22 +86,14 @@ function startScanner() {
         Quagga.start();
         Quagga.onDetected(function (result) {
           handleScan(result.codeResult.code);
-          console.log('Barcode Detected');
           Quagga.stop();
+          statusScan = 'Scan Complete';
         });
       });
-      video.stop();
     })
     .catch(error => {
       console.error('Error accessing camera:', error);
     });
 }
-
-const displayMessage = function () {
-  document.querySelector('.feedback').textContent = barcode;
-  document.querySelector(
-    '.score'
-  ).textContent = `Nutrition score: ${nutritionScore}, Food grade: ${nutriscoreGrade}`;
-};
 
 document.getElementById('startBtn').addEventListener('click', startScanner);
