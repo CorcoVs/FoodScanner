@@ -1,5 +1,5 @@
 body {
-  background: rgb(121, 138, 158);
+  background: rgb(207, 214, 194);
 }
 
 #scanner {
@@ -30,6 +30,7 @@ canvas {
   max-width: 55%;
   height: 25px;
   display: block;
+  border-radius: 30px;
 }
 
 /* h1 {
@@ -47,3 +48,12 @@ canvas {
   margin-right: auto;
   width: 10%;
 } */
+
+.result {
+  padding: 1%;
+  margin: 1em 2em 0 2em;
+  line-height: 3em;
+  outline: auto;
+  background-color: rgb(203, 207, 200);
+  border-radius: 25px;
+}
