@@ -21,7 +21,7 @@ const displayMessage = function () {
 
   // Wait animation
   setTimeout(() => {
-    document.document.querySelector(
+    document.querySelector(
       ".nutrigrade"
     ).textContent = `Food grade: ${nutriscoreGrade}`;
     nutrigradeModal.classList.remove("hidden");
@@ -81,6 +81,14 @@ function handleScan(decodedData) {
     });
 }
 
+//  Fake scanner
+function fakeScanner() {
+  let decodedData = "5449000242402";
+  scanStatus = "Scan Complete, Scan Off";
+  document.querySelector(".status--text").textContent = scanStatus; // Update the status in the UI
+  handleScan(decodedData);
+}
+
 //Start Scanner
 function startScanner() {
   const constraints = {
@@ -130,4 +138,5 @@ function startScanner() {
     });
 }
 
-document.getElementById("startBtn").addEventListener("click", startScanner);
+// document.getElementById("startBtn").addEventListener("click", startScanner);
+document.getElementById("startBtn").addEventListener("click", fakeScanner);
