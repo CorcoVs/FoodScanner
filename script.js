@@ -138,5 +138,5 @@ function startScanner() {
     });
 }
 
-// document.getElementById("startBtn").addEventListener("click", startScanner);
-document.getElementById("startBtn").addEventListener("click", fakeScanner);
+document.getElementById("startBtn").addEventListener("click", startScanner);
+// document.getElementById("startBtn").addEventListener("click", fakeScanner);
