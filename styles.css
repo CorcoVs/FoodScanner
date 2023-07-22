@@ -20,15 +20,14 @@ canvas {
 
 .container {
   width: 100vw;
-  align-items: center;
+  line-height: 5em;
   text-align: center;
-  margin-top: 5em;
 }
 
 #startBtn {
   margin-left: auto;
   margin-right: auto;
-  width: 10%;
+  max-width: 55%;
   height: 25px;
   display: block;
 }
@@ -41,4 +40,10 @@ canvas {
   padding: 30px;
   text-align: center;
   color: white;
+} */
+
+/* .feedback {
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
 } */
