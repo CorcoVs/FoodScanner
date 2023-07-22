@@ -53,7 +53,22 @@ canvas {
   padding: 1%;
   margin: 1em 2em 0 2em;
   line-height: 3em;
-  outline: auto;
   background-color: rgb(203, 207, 200);
+  border: 2px solid black;
   border-radius: 25px;
+}
+
+.hidden {
+  display: none;
+}
+
+.product {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.product--image {
+  border: 1px solid black;
+  border-radius: 5%;
 }

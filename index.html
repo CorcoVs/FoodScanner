@@ -9,24 +9,28 @@
   </head>
   <body>
     <!-- <h1>Food Scanner</h1> -->
-    <div id="scanner">
-      <video id="video" width="400" height="300"></video>
-      <canvas id="canvas" width="400" height="300"></canvas>
-    </div>
-    <br />
-    <div class="container"></div>
-    <div class="container">
-      <button id="startBtn">Scan</button>
-      <p class="feedback">1234567891234</p>
-      <p class="status--text">
-        No productName found, check the barcode and try again
-      </p>
-      <div class="result">
-        <p class="product--name">ProductName: N/A</p>
-        <p class="nutriscore">Nutriscore: N/A</p>
-        <p class="food--grade">Food grade: N/A</p>
+    <main>
+      <div id="scanner">
+        <video id="video" width="400" height="300"></video>
+        <canvas id="canvas" width="400" height="300"></canvas>
       </div>
-    </div>
+      <br />
+      <div class="container">
+        <button id="startBtn">Scan</button>
+        <p class="feedback">1234567891234</p>
+        <p class="status--text hidden">
+          No product found, check the barcode and try again
+        </p>
+        <div class="result">
+          <div class="product">
+            <img class="product--image" src="" alt="product image" />
+            <p class="product--name">Waiting for scan</p>
+          </div>
+          <p class="nutriscore hidden">Nutriscore: N/A</p>
+          <p class="food--grade hidden">Food grade: N/A</p>
+        </div>
+      </div>
+    </main>
     <!-- QuaggaJS library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <script src="script.js"></script>
