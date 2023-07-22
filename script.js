@@ -22,10 +22,11 @@ function handleScan(decodedData) {
 
   const apiUrl = `https://world.openfoodfacts.net/api/v2/product/${barcode}`;
 
-  // Fetch product data using the scanned barcode
+    // Fetch product data using the scanned barcode
   fetch(apiUrl)
     .then(response => response.json())
     .then(json => {
+      // Check if product_name field exists and is populated
       if (
         json.product.product_name &&
         json.product.product_name.trim().length > 0
@@ -35,9 +36,9 @@ function handleScan(decodedData) {
         // Check other product_name_** fields and find the first populated one
         const productKeys = Object.keys(json.product);
         const productNameKey = productKeys.find(key =>
-          key.startsWith('product_name_')
+          key.startsWith('product_name_') && json.product[key].trim().length > 0
         );
-        if (productNameKey && json.product[productNameKey].trim().length > 0) {
+        if (productNameKey) {
           productName = json.product[productNameKey];
         } else {
           console.log('No product name found in the database');
