@@ -21,30 +21,36 @@ function handleScan(decodedData) {
   // Fetch product data using the scanned barcode
   fetch(apiUrl)
     .then(response => response.json())
-
-    //  Write info from json file
     .then(json => {
-      productName = json.product.product_name;
+      if (
+        json.product.product_name &&
+        json.product.product_name.trim().length > 0
+      ) {
+        productName = json.product.product_name;
+      } else {
+        // Check other product_name_** fields and find the first populated one
+        const productKeys = Object.keys(json.product);
+        const productNameKey = productKeys.find(key =>
+          key.startsWith('product_name_')
+        );
+        if (productNameKey && json.product[productNameKey].trim().length > 0) {
+          productName = json.product[productNameKey];
+        } else {
+          console.log('No product name found in the database');
+          scanStatus =
+            'No product name found in the database, check the barcode and try again';
+          document.querySelector('.status--text').textContent = scanStatus; // Update the status in the UI
+        }
+      }
+
       nutritionScore = json.product.nutriscore_score;
       nutriscoreGrade = json.product.nutriscore_grade;
-      //
-      //
-      //
-      //
-      //
-      //
-      //
 
       document.querySelector('.feedback').textContent = barcode;
 
       //Calling displayMessage to update
       if (productName) {
         displayMessage();
-      } else {
-        console.log('Wrong barcode or product does not exist in database');
-        scanStatus =
-          'Wrong barcode or product does not exist in database, check the barcode and try again if wrong';
-        document.querySelector('.status--text').textContent = scanStatus; // Update the status in the UI
       }
     })
     .catch(error => {
@@ -88,12 +94,12 @@ function startScanner() {
           return;
         }
         Quagga.start();
-        scanStatus = 'Scan Complete';
-        document.querySelector('.status--text').textContent = scanStatus; // Update the status in the UI
         Quagga.onDetected(function (result) {
           handleScan(result.codeResult.code);
+          scanStatus = 'Scan Complete, Scan Off';
+          document.querySelector('.status--text').textContent = scanStatus; // Update the status in the UI
           Quagga.stop();
-        });
+        }, true);
       });
     })
     .catch(error => {
