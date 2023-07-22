@@ -17,10 +17,16 @@ const displayMessage = function () {
     ".nutriscore"
   ).textContent = `Nutrition score: ${nutritionScore}`;
   nutriscoreModal.classList.remove("hidden");
-  document.document.querySelector(
-    ".nutrigrade"
-  ).textContent = `Food grade: ${nutriscoreGrade}`;
-  nutrigradeModal.classList.remove("hidden");
+  nutriscoreModal.style.maxHeight = "100px";
+
+  // Wait animation
+  setTimeout(() => {
+    document.document.querySelector(
+      ".nutrigrade"
+    ).textContent = `Food grade: ${nutriscoreGrade}`;
+    nutrigradeModal.classList.remove("hidden");
+    nutrigradeModal.style.maxHeight = "100px";
+  }, 500);
 };
 
 function handleScan(decodedData) {
@@ -60,7 +66,8 @@ function handleScan(decodedData) {
 
       //  Example API call needed to get the image
       // https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
-      // productImage = ${https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg};
+      // productImage =
+      //   "https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg";
 
       document.querySelector(".feedback").textContent = barcode;
 

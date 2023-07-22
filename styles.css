@@ -1,12 +1,15 @@
 body {
   background: rgb(207, 214, 194);
+  width: 100%;
+  overflow: hidden;
 }
 
 #scanner {
   position: relative; /* Set the container to relative position */
-  width: 400px; /* Set the container width to the desired size */
-  height: 300px; /* Set the container height to the desired size */
-  margin: 0 auto; /* Center the container horizontally */
+  width: 720px; /* Set the container width to the desired size */
+  height: 480px; /* Set the container height to the desired size */
+  margin: 2em auto 1em auto; /* Center the container horizontally */
+  overflow: hidden;
 }
 
 video,
@@ -51,11 +54,11 @@ canvas {
 
 .result {
   padding: 1%;
-  margin: 1em 2em 0 2em;
+  margin: 1em auto 0 auto;
   line-height: 3em;
   background-color: rgb(203, 207, 200);
   border: 2px solid black;
-  border-radius: 25px;
+  border-radius: 15px;
 }
 
 .hidden {
@@ -66,9 +69,18 @@ canvas {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  align-content: space-around;
 }
 
 .product--image {
   border: 1px solid black;
   border-radius: 5%;
+}
+
+.nutriscore,
+.nutrigrade {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease; /* Adjust the animation duration as needed */
 }
