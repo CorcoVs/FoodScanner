@@ -4,15 +4,22 @@ const scanner = document.getElementById("scanner");
 let scanStatus = document.querySelector(".status--text").textContent;
 const nutriscoreModal = document.querySelector(".nutriscore");
 const nutrigradeModal = document.querySelector(".nutrigrade");
+const imageModal = document.querySelector(".product--image");
 
 let barcode;
 let nutritionScore;
 let nutriscoreGrade;
 let productName = "";
 let productImage = "";
+let imageSource = "";
 
 const displayMessage = function () {
   document.querySelector(".product--name").textContent = productName;
+
+  //  Display product image
+  imageModal.src = productImage;
+  imageModal.classList.remove("hidden");
+
   document.querySelector(
     ".nutriscore"
   ).textContent = `Nutrition score: ${nutritionScore}`;
@@ -66,8 +73,9 @@ function handleScan(decodedData) {
 
       //  Example API call needed to get the image
       // https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
-      // productImage =
-      //   "https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg";
+      // Update the status in the UI
+      productImage =
+        "https://images.openfoodfacts.org/images/products/343/566/076/8163/1.400.jpg";
 
       document.querySelector(".feedback").textContent = barcode;
 
@@ -83,7 +91,7 @@ function handleScan(decodedData) {
 
 //  Fake scanner
 function fakeScanner() {
-  let decodedData = "5449000242402";
+  let decodedData = "4056489303954";
   scanStatus = "Scan Complete, Scan Off";
   document.querySelector(".status--text").textContent = scanStatus; // Update the status in the UI
   handleScan(decodedData);
@@ -119,6 +127,8 @@ function startScanner() {
         },
       };
 
+      console.log();
+
       Quagga.init(config, function (err) {
         if (err) {
           console.error("Error initializing Quagga:", err);
@@ -138,5 +148,5 @@ function startScanner() {
     });
 }
 
-document.getElementById("startBtn").addEventListener("click", startScanner);
-// document.getElementById("startBtn").addEventListener("click", fakeScanner);
+// document.getElementById("startBtn").addEventListener("click", startScanner);
+document.getElementById("startBtn").addEventListener("click", fakeScanner);

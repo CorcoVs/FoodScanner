@@ -9,28 +9,38 @@
   </head>
   <body>
     <!-- <h1>Food Scanner</h1> -->
-    <main>
-      <div id="scanner">
-        <video id="video" width="400" height="300"></video>
-        <canvas id="canvas" width="400" height="300"></canvas>
-      </div>
-      <br />
-      <div class="container">
-        <button id="startBtn">Scan</button>
-        <p class="feedback">1234567891234</p>
-        <p class="status--text hidden">
-          No product found, check the barcode and try again
-        </p>
-        <div class="result">
-          <div class="product">
-            <img class="product--image" src="" alt="product image" />
-            <p class="product--name">Waiting for scan</p>
-          </div>
-          <p class="nutriscore hidden">Nutriscore: N/A</p>
-          <p class="nutrigrade hidden">Food grade: N/A</p>
-        </div>
-      </div>
-    </main>
+    <div id="scanner">
+      <video id="video" width="400" height="300"></video>
+      <canvas id="canvas" width="400" height="300"></canvas>
+    </div>
+    <br />
+    <div class="container">
+      <button id="startBtn">Scan</button>
+      <p class="feedback">1234567891234</p>
+      <p class="status--text hidden">
+        No product found, check the barcode and try again
+      </p>
+    </div>
+    <ul class="result">
+      <li class="first--row">
+        <img class="product--image hidden" src="" alt="image" />
+        <div class="product--name"></div>
+      </li>
+
+      <li class="nutriscore hidden">Nutriscore: N/A</li>
+      <li class="nutrigrade hidden">Food grade: N/A</li>
+    </ul>
+    <!-- <div class="product">
+            <img
+              class="product--image"
+              src="https://images.openfoodfacts.org/images/products/343/566/076/8163/1.400.jpg"
+              alt="product_image"
+            />
+            <div class="product--name">Waiting for scan</div></div>
+          <div class="nutriscore hidden">Nutriscore: N/A</div>
+          <div class="nutrigrade hidden">Food grade: N/A</div>
+        </div> -->
+
     <!-- QuaggaJS library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <script src="script.js"></script>
