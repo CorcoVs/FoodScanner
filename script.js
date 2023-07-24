@@ -8,7 +8,6 @@ const additivesModal = document.querySelector(".additives");
 const ingredientsModal = document.querySelector("ingredients");
 const imageModal = document.querySelector(".product--image");
 
-let x;
 let barcode;
 let nutritionScore, grade, additivesNumber;
 let productName;
@@ -29,15 +28,16 @@ const displayMessage = function () {
   nutriscoreModal.style.maxHeight = "100px";
 
   // Wait animation
-  setTimeout(() => {
-    nutrigradeModal.src = `../assets/nutri-${grade}.png`;
-    nutrigradeModal.classList.remove("hidden");
-    nutrigradeModal.style.maxHeight = "100px";
-  }, 500);
+  // setTimeout(() => {
+  nutrigradeModal.src = `../assets/nutri-${grade}.png`;
+  nutrigradeModal.classList.remove("hidden");
+  nutrigradeModal.style.maxHeight = "100px";
+  // }, 500);
 
   additivesModal.textContent = `Number of additives: ${additivesNumber}`;
   additivesModal.classList.remove("hidden");
 
+  ingredients;
   ingredientsModal.textContent = ingredients;
   ingredientsModal.classList.remove("hidden");
 };
@@ -81,8 +81,8 @@ function handleScan(decodedData) {
       additivesNumber = json.product.additives_n;
       console.log(additivesNumber);
 
-      ingredients = json.product.ingredients;
-      console.log(ingredients);
+      // ingredients = json.product.ingredients;
+      // console.log(ingredients.count);
 
       //  Example API call needed to get the image
       // https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
@@ -104,7 +104,7 @@ function handleScan(decodedData) {
 
 //  Fake scanner
 function fakeScanner() {
-  let decodedData = "3017620422003";
+  let decodedData = "5449000242402";
   document.querySelector(".status--text").textContent =
     "Scan Complete, Scan Off";
   statusModal.classList.remove(".hidden");
@@ -161,7 +161,7 @@ function startScanner() {
       });
     })
     .catch((error) => {
-      console.error("Error accessing camera:", error);
+      console.error("Error accessing camera:");
     });
 }
 
