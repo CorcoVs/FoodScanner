@@ -70,7 +70,7 @@ function handleScan(decodedData) {
           console.log("No product name found in database");
           document.querySelector(".status--text").textContent =
             "No product name found, check barcode and retry"; // Update the status in the UI
-          StatusModal.classList.remove(".hidden");
+          statusModal.classList.remove(".hidden");
         }
       }
 
@@ -121,7 +121,7 @@ function startScanner() {
   };
 
   document.querySelector(".status--text").textContent = "Scanning"; // Update the status in the UI
-  StatusModal.classList.remove(".hidden");
+  statusModal.classList.remove(".hidden");
 
   navigator.mediaDevices
     .getUserMedia(constraints)
