@@ -8,6 +8,7 @@ const additivesModal = document.querySelector(".additives");
 const ingredientsModal = document.querySelector("ingredients");
 const imageModal = document.querySelector(".product--image");
 
+let x;
 let barcode;
 let nutritionScore, grade, additivesNumber;
 let productName;
