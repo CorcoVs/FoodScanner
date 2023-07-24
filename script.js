@@ -1,18 +1,24 @@
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const scanner = document.getElementById("scanner");
-let scanStatus = document.querySelector(".status--text").textContent;
+const scanStatusModal = document.querySelector(".status--text");
 const nutriscoreModal = document.querySelector(".nutriscore");
 const nutrigradeModal = document.querySelector(".nutrigrade");
+const imageModal = document.querySelector(".product--image");
 
 let barcode;
-let nutritionScore;
-let nutriscoreGrade;
-let productName = "";
-let productImage = "";
+let nutritionScore, grade, additivesNumber;
+let productName;
+let ingredients = [];
+let productImage, imageSource;
 
 const displayMessage = function () {
   document.querySelector(".product--name").textContent = productName;
+
+  //  Display product image
+  imageModal.src = productImage;
+  imageModal.classList.remove("hidden");
+
   document.querySelector(
     ".nutriscore"
   ).textContent = `Nutrition score: ${nutritionScore}`;
@@ -21,9 +27,7 @@ const displayMessage = function () {
 
   // Wait animation
   setTimeout(() => {
-    document.querySelector(
-      ".nutrigrade"
-    ).textContent = `Food grade: ${nutriscoreGrade}`;
+    document.querySelector(".nutrigrade").src = `../assets/nutri-${grade}.png`;
     nutrigradeModal.classList.remove("hidden");
     nutrigradeModal.style.maxHeight = "100px";
   }, 500);
@@ -56,18 +60,26 @@ function handleScan(decodedData) {
           productName = json.product[productNameKey];
         } else {
           console.log("No product name found in database");
-          scanStatus = "No product name found, check barcode and retry";
-          document.querySelector(".status--text").textContent = scanStatus; // Update the status in the UI
+          document.querySelector(".status--text").textContent =
+            "No product name found, check barcode and retry"; // Update the status in the UI
+          scanStatusModal.classList.remove(".hidden");
         }
       }
 
       nutritionScore = json.product.nutriscore_score;
-      nutriscoreGrade = json.product.nutriscore_grade;
+      grade = json.product.nutriscore_grade;
+
+      additivesNumber = json.product.additives_n;
+      console.log(additivesNumber);
+
+      ingredients = json.product.ingredients;
+      console.log(ingredients);
 
       //  Example API call needed to get the image
       // https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
+      // Update the status in the UI
       // productImage =
-      //   "https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg";
+      //   "https://images.openfoodfacts.org/images/products/343/566/076/8163/1.400.jpg";
 
       document.querySelector(".feedback").textContent = barcode;
 
@@ -83,9 +95,10 @@ function handleScan(decodedData) {
 
 //  Fake scanner
 function fakeScanner() {
-  let decodedData = "5449000242402";
+  let decodedData = "3017620422003";
   scanStatus = "Scan Complete, Scan Off";
   document.querySelector(".status--text").textContent = scanStatus; // Update the status in the UI
+  scanStatusModal.classList.remove(".hidden");
   handleScan(decodedData);
 }
 
@@ -99,8 +112,8 @@ function startScanner() {
     },
   };
 
-  scanStatus = "Starting Scanner";
-  document.querySelector(".status--text").textContent = scanStatus; // Update the status in the UI
+  document.querySelector(".status--text").textContent = "Scanning"; // Update the status in the UI
+  scanStatusModal.classList.remove(".hidden");
 
   navigator.mediaDevices
     .getUserMedia(constraints)
@@ -119,6 +132,8 @@ function startScanner() {
         },
       };
 
+      console.log();
+
       Quagga.init(config, function (err) {
         if (err) {
           console.error("Error initializing Quagga:", err);
@@ -127,8 +142,9 @@ function startScanner() {
         Quagga.start();
         Quagga.onDetected(function (result) {
           handleScan(result.codeResult.code);
-          scanStatus = "Scan Complete, Scan Off";
-          document.querySelector(".status--text").textContent = scanStatus; // Update the status in the UI
+          document.querySelector(".status--text").textContent =
+            "Scan Complete, Scan Off"; // Update the status in the UI
+          scanStatusModal.classList.remove(".hidden");
           Quagga.stop();
         }, true);
       });
@@ -139,4 +155,6 @@ function startScanner() {
 }
 
 document.getElementById("startBtn").addEventListener("click", startScanner);
+
+// Fake Scanner function for testing
 // document.getElementById("startBtn").addEventListener("click", fakeScanner);
