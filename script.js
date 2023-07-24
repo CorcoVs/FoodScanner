@@ -1,9 +1,11 @@
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const scanner = document.getElementById("scanner");
-const scanStatusModal = document.querySelector(".status--text");
+let statusModal = document.querySelector(".status--text");
 const nutriscoreModal = document.querySelector(".nutriscore");
 const nutrigradeModal = document.querySelector(".nutrigrade");
+const additivesModal = document.querySelector(".additives");
+const ingredientsModal = document.querySelector("ingredients");
 const imageModal = document.querySelector(".product--image");
 
 let barcode;
@@ -27,10 +29,16 @@ const displayMessage = function () {
 
   // Wait animation
   setTimeout(() => {
-    document.querySelector(".nutrigrade").src = `../assets/nutri-${grade}.png`;
+    nutrigradeModal.src = `../assets/nutri-${grade}.png`;
     nutrigradeModal.classList.remove("hidden");
     nutrigradeModal.style.maxHeight = "100px";
   }, 500);
+
+  additivesModal.textContent = `Number of additives: ${additivesNumber}`;
+  additivesModal.classList.remove("hidden");
+
+  ingredientsModal.textContent = ingredients;
+  ingredientsModal.classList.remove("hidden");
 };
 
 function handleScan(decodedData) {
@@ -62,7 +70,7 @@ function handleScan(decodedData) {
           console.log("No product name found in database");
           document.querySelector(".status--text").textContent =
             "No product name found, check barcode and retry"; // Update the status in the UI
-          scanStatusModal.classList.remove(".hidden");
+          StatusModal.classList.remove(".hidden");
         }
       }
 
@@ -96,9 +104,9 @@ function handleScan(decodedData) {
 //  Fake scanner
 function fakeScanner() {
   let decodedData = "3017620422003";
-  scanStatus = "Scan Complete, Scan Off";
-  document.querySelector(".status--text").textContent = scanStatus; // Update the status in the UI
-  scanStatusModal.classList.remove(".hidden");
+  document.querySelector(".status--text").textContent =
+    "Scan Complete, Scan Off";
+  statusModal.classList.remove(".hidden");
   handleScan(decodedData);
 }
 
@@ -113,7 +121,7 @@ function startScanner() {
   };
 
   document.querySelector(".status--text").textContent = "Scanning"; // Update the status in the UI
-  scanStatusModal.classList.remove(".hidden");
+  StatusModal.classList.remove(".hidden");
 
   navigator.mediaDevices
     .getUserMedia(constraints)
@@ -142,10 +150,12 @@ function startScanner() {
         Quagga.start();
         Quagga.onDetected(function (result) {
           handleScan(result.codeResult.code);
-          document.querySelector(".status--text").textContent =
-            "Scan Complete, Scan Off"; // Update the status in the UI
-          scanStatusModal.classList.remove(".hidden");
           Quagga.stop();
+
+          // Need to Fix
+          // document.querySelector(".status--text").textContent =
+          //   "Scan Complete, Scan Off";
+          // document.querySelector(".status--text").classList.remove(".hidden");
         }, true);
       });
     })

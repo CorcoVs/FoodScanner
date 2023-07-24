@@ -6,6 +6,7 @@
 
 * {
   box-sizing: border-box;
+  list-style-type: none;
 }
 
 html,
@@ -80,10 +81,6 @@ canvas {
   width: 10%;
 } */
 
-ul li {
-  margin: 0 2em 0 0;
-}
-
 .first--row {
   display: flex;
   justify-content: space-around;
@@ -128,4 +125,13 @@ ul li {
   overflow: hidden;
   transition: max-height 0.5s ease; /* Adjust the animation duration as needed */
   text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  line-height: 5em;
 }
