@@ -121,7 +121,7 @@ function startScanner() {
     },
   };
 
-  document.querySelector(".status--text").textContent = "Scanning"; // Update the status in the UI
+  document.querySelector(".status--text").textContent = "Scanning";
   statusModal.classList.remove(".hidden");
 
   navigator.mediaDevices
