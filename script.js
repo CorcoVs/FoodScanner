@@ -8,9 +8,7 @@ const additivesModal = document.querySelector(".additives");
 const ingredientsModal = document.querySelector("ingredients");
 const imageModal = document.querySelector(".product--image");
 
-let barcode;
-let nutritionScore, grade, additivesNumber;
-let productName;
+let nutritionScore, grade, additivesNumber, barcode, productName;
 let ingredients = [];
 let productImage, imageSource;
 
@@ -27,11 +25,13 @@ const displayMessage = function () {
   nutriscoreModal.classList.remove("hidden");
   nutriscoreModal.style.maxHeight = "100px";
 
+
+  //    Check if working with/out
   // Wait animation
   // setTimeout(() => {
   nutrigradeModal.src = `../assets/nutri-${grade}.png`;
   nutrigradeModal.classList.remove("hidden");
-  nutrigradeModal.style.maxHeight = "100px";
+  // nutrigradeModal.style.maxHeight = "100px";
   // }, 500);
 
   additivesModal.textContent = `Number of additives: ${additivesNumber}`;
@@ -78,7 +78,7 @@ function handleScan(decodedData) {
       nutritionScore = json.product.nutriscore_score;
       grade = json.product.nutriscore_grade;
 
-      additivesNumber = json.product.additives_n;
+      additivesNumber = [json.product.additives_n];
       console.log(additivesNumber);
 
       // ingredients = json.product.ingredients;
@@ -105,9 +105,11 @@ function handleScan(decodedData) {
 //  Fake scanner
 function fakeScanner() {
   let decodedData = "5449000242402";
-  document.querySelector(".status--text").textContent =
-    "Scan Complete, Scan Off";
-  statusModal.classList.remove(".hidden");
+  if (document.classList.contains(".hidden") {
+      document.querySelector(".status--text").textContent =
+        "Scan Complete, Scan Off";
+       statusModal.classList.toggle(".hidden");
+  }
   handleScan(decodedData);
 }
 
