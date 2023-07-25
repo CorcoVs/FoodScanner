@@ -27,6 +27,7 @@ const displayMessage = function () {
   nutriscoreModal.classList.remove("hidden");
   nutriscoreModal.style.maxHeight = "100px";
 
+  //    Check if working with/out
   // Wait animation
   setTimeout(() => {
     nutrigradeModal.src = `../assets/nutri-${grade}.png`;
@@ -80,7 +81,7 @@ function handleScan(decodedData) {
       //Set Nutrigrade
       grade = json.product.nutriscore_grade;
 
-      additivesNumber = json.product.additives_n;
+      additivesNumber = [json.product.additives_n];
       console.log(additivesNumber);
 
       ingredients = json.product.ingredients;
@@ -103,14 +104,16 @@ function handleScan(decodedData) {
     });
 }
 
-//  Fake scanner
-function fakeScanner() {
-  let decodedData = "3175680011480";
-  document.querySelector(".status--text").textContent =
-    "Scan Complete, Scan Off";
-  statusModal.classList.remove(".hidden");
-  handleScan(decodedData);
-}
+// //  Fake scanner
+// function fakeScanner() {
+//   let decodedData = "3175680011480";
+//   if (document.classList.contains(".hidden") {
+//       document.querySelector(".status--text").textContent =
+//         "Scan Complete, Scan Off";
+//        statusModal.classList.toggle(".hidden");
+//   }
+//   handleScan(decodedData);
+// }
 
 //Start Scanner
 function startScanner() {
