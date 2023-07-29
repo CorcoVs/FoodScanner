@@ -1,7 +1,7 @@
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const scanner = document.getElementById("scanner");
-let statusModal = document.querySelector(".status--text");
+const statusModal = document.querySelector(".status");
 const nutriscoreModal = document.querySelector(".nutriscore");
 const nutrigradeModal = document.querySelector(".nutrigrade");
 const additivesModal = document.querySelector(".additives");
@@ -71,7 +71,7 @@ function handleScan(decodedData) {
           productName = json.product[productNameKey];
         } else {
           console.log("No product name found in database");
-          document.querySelector(".status--text").textContent =
+          statusModal.textContent =
             "No product name found, check barcode and retry"; // Update the status in the UI
           statusModal.classList.remove(".hidden");
         }
@@ -104,16 +104,13 @@ function handleScan(decodedData) {
     });
 }
 
-// //  Fake scanner
-// function fakeScanner() {
-//   let decodedData = "3175680011480";
-//   if (document.classList.contains(".hidden") {
-//       document.querySelector(".status--text").textContent =
-//         "Scan Complete, Scan Off";
-//        statusModal.classList.toggle(".hidden");
-//   }
-//   handleScan(decodedData);
-// }
+//  Fake scanner
+function fakeScanner() {
+  let decodedData = "3175680011480";
+  statusModal.classList.remove(".hidden");
+  statusModal.textContent = "Scan Complete";
+  handleScan(decodedData);
+}
 
 //Start Scanner
 function startScanner() {
@@ -154,13 +151,20 @@ function startScanner() {
         }
         Quagga.start();
         Quagga.onDetected(function (result) {
+          scanner.classList.add("flashing-border");
+
           handleScan(result.codeResult.code);
           Quagga.stop();
 
+          video.pause();
+          video.srcObject = null;
+
           // Need to Fix
-          // document.querySelector(".status--text").textContent =
-          //   "Scan Complete, Scan Off";
-          // document.querySelector(".status--text").classList.remove(".hidden");
+          statusModal.textContent = "Scan Complete, Scan Off";
+          statusModal.classList.remove(".hidden");
+          setTimeout(() => {
+            scanner.classList.remove("flashing-border");
+          }, 1500);
         }, true);
       });
     })
@@ -169,7 +173,7 @@ function startScanner() {
     });
 }
 
-document.getElementById("startBtn").addEventListener("click", startScanner);
+// document.getElementById("startBtn").addEventListener("click", startScanner);
 
 // Fake Scanner function for testing
-// document.getElementById("startBtn").addEventListener("click", fakeScanner);
+document.getElementById("startBtn").addEventListener("click", fakeScanner);
