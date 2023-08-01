@@ -27,10 +27,9 @@ const displayMessage = function () {
   nutriscoreModal.classList.remove("hidden");
   nutriscoreModal.style.maxHeight = "100px";
 
-  //    Check if working with/out
   // Wait animation
   setTimeout(() => {
-    nutrigradeModal.src = `../assets/nutri-${grade}.png`;
+    nutrigradeModal.src = `https://raw.githubusercontent.com/CorcoVs/FoodScanner/main/assets/nutri-${grade}.png`;
     nutrigradeModal.classList.remove("hidden");
     nutrigradeModal.style.maxHeight = "100px";
   }, 500);
@@ -73,7 +72,7 @@ function handleScan(decodedData) {
           console.log("No product name found in database");
           statusModal.textContent =
             "No product name found, check barcode and retry"; // Update the status in the UI
-          statusModal.classList.remove(".hidden");
+          statusModal.classList.remove("hidden");
         }
       }
       //Set NutriScore
@@ -88,8 +87,10 @@ function handleScan(decodedData) {
       // console.log(ingredients.count);
 
       //  Example API call needed to get the image
+
       // https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
       // Update the status in the UI
+
       productImage = "https://picsum.photos/200";
 
       document.querySelector(".feedback").textContent = barcode;
@@ -107,7 +108,7 @@ function handleScan(decodedData) {
 //  Fake scanner
 function fakeScanner() {
   let decodedData = "3175680011480";
-  statusModal.classList.remove(".hidden");
+  statusModal.classList.remove("hidden");
   statusModal.textContent = "Scan Complete";
   handleScan(decodedData);
 }
@@ -116,14 +117,14 @@ function fakeScanner() {
 function startScanner() {
   const constraints = {
     video: {
-      facingMode: "environment", // back camera
+      facingMode: "environment",
       width: { ideal: 1280 },
       height: { ideal: 720 },
     },
   };
 
   statusModal.textContent = "Scanning";
-  statusModal.classList.remove(".hidden");
+  statusModal.classList.remove("hidden");
 
   navigator.mediaDevices
     .getUserMedia(constraints)
@@ -161,7 +162,7 @@ function startScanner() {
 
           // Need to Fix
           statusModal.textContent = "Scan Complete, Scan Off";
-          statusModal.classList.remove(".hidden");
+          statusModal.classList.remove("hidden");
           setTimeout(() => {
             scanner.classList.remove("flashing-border");
           }, 1500);
