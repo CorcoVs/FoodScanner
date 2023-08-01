@@ -7,27 +7,30 @@
 * {
   box-sizing: border-box;
   list-style-type: none;
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
 }
 
 html,
 body {
   min-height: 100%;
-  color: #000;
-  background: rgb(207, 214, 194);
-  max-width: 100vw;
+  color: #333;
+  background-color: var(--background-color);
 }
 
 body {
   font-size: 1.4rem;
   text-rendering: optimizeLegibility;
+  line-height: 1.6;
 }
 
 body,
 ul,
 ol,
-dl {
+button,
+p,
+h1 {
   margin: 0;
+  padding: 0;
 }
 
 img {
@@ -41,6 +44,7 @@ img {
   height: 480px;
   margin: 2em auto 1em auto;
   overflow: hidden;
+  padding-bottom: 75%; /* Aspect ratio 4:3 */
 }
 
 video,
@@ -48,6 +52,8 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .container {
@@ -61,16 +67,24 @@ canvas {
   margin-left: auto;
   margin-right: auto;
   max-width: 55%;
-  height: 25px;
+  padding: 0.5rem;
   display: block;
-  border-radius: 30px;
+  border: none;
+  border-radius: 8px;
+  color: #4caf50;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  background-color: #f5f5f5;
 }
 
-/* .feedback {
-  margin-left: auto;
-  margin-right: auto;
-  width: 10%;
-} */
+#startBtn:hover {
+  background-color: #4caf50;
+  color: #f5f5f5;
+}
+
+.feedback {
+  margin: 1.2rem auto;
+}
 
 .first--row {
   display: flex;
@@ -80,10 +94,10 @@ canvas {
 
 .result {
   padding: 1%;
-  margin: 3em auto 0 auto;
+  margin: 2rem auto 0 auto;
   background-color: rgb(203, 207, 200);
-  border: 2px solid black;
-  border-radius: 15px;
+  border: 1px solid black;
+  border-radius: 6px;
 }
 
 .result .div {
@@ -102,9 +116,12 @@ canvas {
 }
 
 .product--image {
-  border: 1px solid black;
-  border-radius: 5%;
-  max-width: 150px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #4caf50;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nutriscore,
@@ -116,6 +133,7 @@ canvas {
   overflow: hidden;
   transition: max-height 0.5s ease;
   text-align: center;
+  margin-top: 0.5rem;
 }
 
 .wrapper {
@@ -130,6 +148,7 @@ ul {
 .flashing-border {
   border: 5px solid green;
   animation: flashing 1s infinite alternate;
+  -webkit-animation: flashing 1s infinite alternate;
 }
 
 @keyframes flashing {
@@ -143,4 +162,11 @@ ul {
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 38;
+}
+
+.status {
+  border: 1px solid #333;
+  border-radius: 9px;
+  max-width: 10rem;
+  margin: 0 auto;
 }

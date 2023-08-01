@@ -2,6 +2,7 @@ const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const scanner = document.getElementById("scanner");
 const statusModal = document.querySelector(".status");
+const resultModal = document.querySelector(".result");
 const nutriscoreModal = document.querySelector(".nutriscore");
 const nutrigradeModal = document.querySelector(".nutrigrade");
 const additivesModal = document.querySelector(".additives");
@@ -68,6 +69,7 @@ function handleScan(decodedData) {
         );
         if (productNameKey) {
           productName = json.product[productNameKey];
+          resultModal.classList.remove("hidden");
         } else {
           console.log("No product name found in database");
           statusModal.textContent =
