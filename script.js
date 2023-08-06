@@ -87,52 +87,22 @@ function handleScan(decodedData) {
 
       ingredients = json.product.ingredients;
       console.log(ingredients.count);
-
-      //  Example API call needed to get the image
-
-      //https:images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
-
-      // Update the status in the UI
+      const lang = json.product.lang;
 
       // Set the product image
-      // productImage = "https://picsum.photos/200";
-      // Check if images information is available in the JSON
-      if (json.product && json.product.images) {
-        // Get the selected image for product photo (front) in 200 size
-        const productPhotoImage =
-          json.product.images[`front_${json.product.lang}`];
-        if (
-          productPhotoImage &&
-          productPhotoImage.sizes &&
-          productPhotoImage.sizes["200"]
-        ) {
-          // Construct the URL for the 200 size image
-          const imageUrl = `https://images.openfoodfacts.org/images/products/${json.code}/${productPhotoImage.imgid}.200.jpg`;
-
-          // Call  URL for the image
-          fetch(imageUrl)
-            .then((imageResponse) => imageResponse.blob())
-            .then((imageBlob) => {
-              // Display the product image
-              productImage = URL.createObjectURL(imageBlob);
-
-              // Update the status in the UI
-              document.querySelector(".feedback").textContent = barcode;
-
-              // Calling displayMessage to update
-              if (productName) {
-                displayMessage();
-              }
-            })
-
-            .catch((error) => {
-              console.error("Error fetching image:", error);
-            });
-        } else {
-          console.error("Product photo image not available in 200 size.");
-        }
+      if (json.product.selected_images.front.en) {
+        productImage = json.product.selected_images.front.small.en;
       } else {
-        console.error("Product data or images not found in the response.");
+        productImage = json.product.selected_images.front.small[`.${lang}`];
+      }
+      console.log(productImage);
+
+      // Update feedback in the UI
+      document.querySelector(".feedback").textContent = barcode;
+
+      // Calling displayMessage to update the UI
+      if (productName) {
+        displayMessage();
       }
     })
 

@@ -49,8 +49,6 @@ img {
 #scanner {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  display: none; /* Hide by default */
 }
 
 video,
