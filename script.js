@@ -136,8 +136,8 @@ function startScanner() {
   const constraints = {
     video: {
       facingMode: "environment",
-      width: { ideal: 1280 },
-      height: { ideal: 720 },
+      width: { ideal: 720 },
+      height: { ideal: 1280 },
     },
   };
 
@@ -180,6 +180,7 @@ function startScanner() {
 
           statusModal.textContent = "Scan Complete";
           statusModal.classList.remove("hidden");
+          scanner.style.display = "none";
           setTimeout(() => {
             scanner.classList.remove("flashing-border");
           }, 1500);
@@ -190,7 +191,6 @@ function startScanner() {
       console.log("Error accessing camera:", error);
       statusModal.textContent = "Error accessing camera";
     });
-  scanner.style.display = "none";
 }
 
 document.getElementById("startBtn").addEventListener("click", startScanner);
