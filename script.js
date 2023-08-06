@@ -15,8 +15,21 @@ let productName;
 let ingredients;
 let productImage, imageSource;
 
+/*
+ * Displays information about a scanned food product.
+ *
+ * @param {string} productName - The name of the scanned food product.
+ * @param {string} productImage - The URL of the scanned food product's image.
+ * @param {number} nutritionScore - The nutrition score of the scanned food product.
+ * @param {string} grade - The nutrigrade of the scanned food product.
+ * @param {number} additivesNumber - The number of additives in the scanned food product.
+ * @param {string} ingredients - The ingredients of the scanned food product.
+ */
+
 const displayMessage = function () {
   document.querySelector(".product--name").textContent = productName;
+
+  resultModal.classList.remove("hidden");
 
   //  Display product image
   imageModal.src = productImage;
@@ -90,12 +103,10 @@ function handleScan(decodedData) {
       const lang = json.product.lang;
 
       // Set the product image
-      if (json.product.selected_images.front.en) {
+      if (json.product.selected_images.front) {
         productImage = json.product.selected_images.front.small.en;
-      } else {
-        productImage = json.product.selected_images.front.small[`.${lang}`];
+        console.log(productImage);
       }
-      console.log(productImage);
 
       // Update feedback in the UI
       document.querySelector(".feedback").textContent = barcode;
@@ -121,6 +132,7 @@ function fakeScanner() {
 
 //Start Scanner
 function startScanner() {
+  scanner.style.display = "block";
   const constraints = {
     video: {
       facingMode: "environment",
@@ -168,7 +180,6 @@ function startScanner() {
 
           statusModal.textContent = "Scan Complete";
           statusModal.classList.remove("hidden");
-          resultModal.classList.remove("hidden");
           setTimeout(() => {
             scanner.classList.remove("flashing-border");
           }, 1500);
@@ -179,6 +190,7 @@ function startScanner() {
       console.log("Error accessing camera:", error);
       statusModal.textContent = "Error accessing camera";
     });
+  scanner.style.display = "none";
 }
 
 document.getElementById("startBtn").addEventListener("click", startScanner);
