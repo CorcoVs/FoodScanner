@@ -18,8 +18,8 @@
   <body>
     <!-- <h1>Food Scanner</h1> -->
     <div id="scanner">
-      <video id="video" width="400" height="300"></video>
-      <canvas id="canvas" width="400" height="300"></canvas>
+      <video id="video"></video>
+      <canvas id="canvas"></canvas>
     </div>
     <br />
     <div class="container">
@@ -27,8 +27,9 @@
       <div class="feedback">
         <span class="material-symbols-outlined"> barcode </span>
       </div>
-
-      <div class="status hidden">No product found</div>
+      <div class="statusContainer">
+        <div class="status hidden">No product found</div>
+      </div>
     </div>
     <ul class="result hidden">
       <li class="first--row">

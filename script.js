@@ -90,10 +90,11 @@ function handleScan(decodedData) {
 
       //  Example API call needed to get the image
 
-      // https://images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
+      //images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
+
       // Update the status in the UI
 
-      productImage = "https://picsum.photos/200";
+      https: productImage = "https://picsum.photos/200";
 
       document.querySelector(".feedback").textContent = barcode;
 
@@ -173,6 +174,7 @@ function startScanner() {
     })
     .catch((error) => {
       console.log("Error accessing camera:", error);
+      statusModal.textContent = "Error accessing camera";
     });
 }
 
