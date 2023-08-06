@@ -86,23 +86,56 @@ function handleScan(decodedData) {
       console.log(additivesNumber);
 
       ingredients = json.product.ingredients;
-      // console.log(ingredients.count);
+      console.log(ingredients.count);
 
       //  Example API call needed to get the image
 
-      //images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
+      //https:images.openfoodfacts.org/images/products/343/566/076/8163/1.jpg
 
       // Update the status in the UI
 
-      https: productImage = "https://picsum.photos/200";
+      // Set the product image
+      // productImage = "https://picsum.photos/200";
+      // Check if images information is available in the JSON
+      if (json.product && json.product.images) {
+        // Get the selected image for product photo (front) in 200 size
+        const productPhotoImage =
+          json.product.images[`front_${json.product.lang}`];
+        if (
+          productPhotoImage &&
+          productPhotoImage.sizes &&
+          productPhotoImage.sizes["200"]
+        ) {
+          // Construct the URL for the 200 size image
+          const imageUrl = `https://images.openfoodfacts.org/images/products/${json.code}/${productPhotoImage.imgid}.200.jpg`;
 
-      document.querySelector(".feedback").textContent = barcode;
+          // Call  URL for the image
+          fetch(imageUrl)
+            .then((imageResponse) => imageResponse.blob())
+            .then((imageBlob) => {
+              // Display the product image
+              productImage = URL.createObjectURL(imageBlob);
 
-      //Calling displayMessage to update
-      if (productName) {
-        displayMessage();
+              // Update the status in the UI
+              document.querySelector(".feedback").textContent = barcode;
+
+              // Calling displayMessage to update
+              if (productName) {
+                displayMessage();
+              }
+            })
+
+            .catch((error) => {
+              console.error("Error fetching image:", error);
+            });
+        } else {
+          console.error("Product photo image not available in 200 size.");
+        }
+      } else {
+        console.error("Product data or images not found in the response.");
       }
     })
+
     .catch((error) => {
       console.log("Error fetching data:", error);
     });
@@ -163,9 +196,9 @@ function startScanner() {
           video.pause();
           video.srcObject = null;
 
-          // Need to Fix
-          statusModal.textContent = "Scan Complete, Scan Off";
+          statusModal.textContent = "Scan Complete";
           statusModal.classList.remove("hidden");
+          resultModal.classList.remove("hidden");
           setTimeout(() => {
             scanner.classList.remove("flashing-border");
           }, 1500);
