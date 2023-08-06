@@ -212,7 +212,7 @@ function startScanner() {
     });
 }
 
-// document.getElementById("startBtn").addEventListener("click", startScanner);
+document.getElementById("startBtn").addEventListener("click", startScanner);
 
 // Fake Scanner function for testing
-document.getElementById("startBtn").addEventListener("click", fakeScanner);
+// document.getElementById("startBtn").addEventListener("click", fakeScanner);
