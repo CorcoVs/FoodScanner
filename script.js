@@ -8,9 +8,10 @@ const nutrigradeModal = document.querySelector(".nutrigrade");
 const additivesModal = document.querySelector(".additives");
 const ingredientsModal = document.querySelector(".ingredients");
 const imageModal = document.querySelector(".product--image");
+const nova = document.querySelector(".nova");
 
 let barcode;
-let nutritionScore, grade, additivesNumber;
+let novaScore, grade, additivesNumber;
 let productName;
 let ingredients;
 let productImage, imageSource;
@@ -20,7 +21,7 @@ let productImage, imageSource;
  *
  * @param {string} productName - The name of the scanned food product.
  * @param {string} productImage - The URL of the scanned food product's image.
- * @param {number} nutritionScore - The nutrition score of the scanned food product.
+ * @param {number} novaScore - The nutrition score of the scanned food product.
  * @param {string} grade - The nutrigrade of the scanned food product.
  * @param {number} additivesNumber - The number of additives in the scanned food product.
  * @param {string} ingredients - The ingredients of the scanned food product.
@@ -35,9 +36,7 @@ const displayMessage = function () {
   imageModal.src = productImage;
   imageModal.classList.remove("hidden");
 
-  document.querySelector(
-    ".nutriscore"
-  ).textContent = `Nutrition score: ${nutritionScore}`;
+  nova.src = `https://static.openfoodfacts.org/images/attributes/nova-group-${novaScore}.svg`;
   nutriscoreModal.classList.remove("hidden");
   nutriscoreModal.style.maxHeight = "100px";
 
@@ -48,7 +47,7 @@ const displayMessage = function () {
     nutrigradeModal.style.maxHeight = "100px";
   }, 500);
   setTimeout(() => {
-    additivesModal.textContent = `Number of additives: ${additivesNumber} i`;
+    additivesModal.textContent = `${additivesNumber} additives`;
     additivesModal.classList.remove("hidden");
   }, 500);
   setTimeout(() => {
@@ -59,6 +58,9 @@ const displayMessage = function () {
 
 function handleScan(decodedData) {
   barcode = decodedData;
+
+  // Update scanned barcode in the UI
+  document.querySelector(".feedback").textContent = barcode;
 
   const apiUrl = `https://world.openfoodfacts.net/api/v2/product/${barcode}`;
 
@@ -90,26 +92,26 @@ function handleScan(decodedData) {
           statusModal.classList.remove("hidden");
         }
       }
-      //Set NutriScore
-      nutritionScore = json.product.nutriscore_score;
+      //Set NovaScore
+      novaScore = json.product.nutriscore_score;
       //Set Nutrigrade
       grade = json.product.nutriscore_grade;
 
-      additivesNumber = [json.product.additives_n];
+      additivesNumber = json.product.additives_n;
       console.log(additivesNumber);
 
-      ingredients = json.product.ingredients;
-      console.log(ingredients.count);
+      // Need to find the ingredients
+      // ingredients = json.product.ingredients;
+      // console.log(ingredients.count);
       const lang = json.product.lang;
 
       // Set the product image
       if (json.product.selected_images.front) {
-        productImage = json.product.selected_images.front.small.en;
+        productImage = json.product.selected_images.front.small[lang];
         console.log(productImage);
+      } else {
+        productImage = "No image found";
       }
-
-      // Update feedback in the UI
-      document.querySelector(".feedback").textContent = barcode;
 
       // Calling displayMessage to update the UI
       if (productName) {
@@ -132,6 +134,23 @@ function fakeScanner() {
 
 //Start Scanner
 function startScanner() {
+  //Reset the scanner variables
+  barcode = null;
+  productName = null;
+  novaScore = null;
+  grade = null;
+  additivesNumber = null;
+  ingredients = null;
+  productImage = null;
+
+  // Hide the result modal and UI elements
+  resultModal.classList.add("hidden");
+  imageModal.classList.add("hidden");
+  nutriscoreModal.classList.add("hidden");
+  nutrigradeModal.classList.add("hidden");
+  additivesModal.classList.add("hidden");
+  ingredientsModal.classList.add("hidden");
+
   scanner.style.display = "block";
   const constraints = {
     video: {
@@ -193,7 +212,7 @@ function startScanner() {
     });
 }
 
-document.getElementById("startBtn").addEventListener("click", startScanner);
+// document.getElementById("startBtn").addEventListener("click", startScanner);
 
 // Fake Scanner function for testing
-// document.getElementById("startBtn").addEventListener("click", fakeScanner);
+document.getElementById("startBtn").addEventListener("click", fakeScanner);

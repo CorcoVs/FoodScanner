@@ -181,3 +181,14 @@ ul {
   align-items: center;
   height: 10vh; /* Adjust the height as needed */
 }
+
+.nutriscore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.nutriscore img {
+  width: 50px;
+}
