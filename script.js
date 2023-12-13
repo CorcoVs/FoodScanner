@@ -36,9 +36,13 @@ const displayMessage = function () {
   imageModal.src = productImage;
   imageModal.classList.remove("hidden");
 
-  nova.src = `https://raw.githubusercontent.com/CorcoVs/FoodScanner/main/assets/${novaScore}.svg`;
-  nutriscoreModal.classList.remove("hidden");
-  nutriscoreModal.style.maxHeight = "100px";
+  if (novaScore === undefined) {
+    nova.alt = `undefined`;
+  } else {
+    nova.src = `https://raw.githubusercontent.com/CorcoVs/FoodScanner/main/assets/${novaScore}.svg`;
+    nutriscoreModal.classList.remove("hidden");
+    nutriscoreModal.style.maxHeight = "100px";
+  }
 
   // Wait animation
   setTimeout(() => {
@@ -54,6 +58,10 @@ const displayMessage = function () {
     ingredientsModal.textContent = ingredients;
     ingredientsModal.classList.remove("hidden");
   }, 500);
+  // setTimeout(() => {
+  //   statusModal.classList.add("hidden");
+  //   statusModal.textContent = "Scan Complete";
+  // }, 500);
 };
 
 function handleScan(decodedData) {
@@ -126,7 +134,7 @@ function handleScan(decodedData) {
 
 //  Fake scanner
 function fakeScanner() {
-  let decodedData = "3175680011480";
+  let decodedData = "54493438";
   statusModal.classList.remove("hidden");
   statusModal.textContent = "Scan Complete";
   handleScan(decodedData);
@@ -214,5 +222,5 @@ function startScanner() {
 
 document.getElementById("startBtn").addEventListener("click", startScanner);
 
-// Fake Scanner function for testing
+// // Fake Scanner function for testing
 // document.getElementById("startBtn").addEventListener("click", fakeScanner);
