@@ -36,7 +36,7 @@ const displayMessage = function () {
   imageModal.src = productImage;
   imageModal.classList.remove("hidden");
 
-  nova.src = `https://static.openfoodfacts.org/images/attributes/nova-group-${novaScore}.svg`;
+  nova.src = `https://raw.githubusercontent.com/CorcoVs/FoodScanner/main/assets/${novaScore}.svg`;
   nutriscoreModal.classList.remove("hidden");
   nutriscoreModal.style.maxHeight = "100px";
 
@@ -155,8 +155,8 @@ function startScanner() {
   const constraints = {
     video: {
       facingMode: "environment",
-      width: { ideal: 720 },
-      height: { ideal: 1280 },
+      width: { ideal: 1920 },
+      height: { ideal: 1080 },
     },
   };
 

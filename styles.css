@@ -21,7 +21,7 @@ body {
   font-size: 1.4rem;
   text-rendering: optimizeLegibility;
   line-height: 1.6;
-  max-width: 100vh;
+  background-color: lightgreen;
 }
 
 body,
@@ -30,7 +30,7 @@ ol,
 button,
 p,
 h1 {
-  margin: 0;
+  margin: 3%;
   padding: 0;
 }
 
@@ -42,12 +42,13 @@ img {
 #scanner {
   display: none;
   position: relative;
-  width: 100%;
+  width: 85%;
   max-height: 40vh;
   aspect-ratio: 4/3;
   margin: 2em auto 1em auto;
   overflow: hidden;
   border: 3px solid #333;
+  border-radius: 2.5em;
 }
 
 video,
@@ -69,8 +70,8 @@ canvas {
 #startBtn {
   margin-left: auto;
   margin-right: auto;
-  max-width: 55%;
-  padding: 0.5rem;
+  max-width: 75%;
+  padding: 0.6rem;
   display: block;
   border: none;
   border-radius: 8px;
@@ -98,8 +99,8 @@ canvas {
 .result {
   padding: 1%;
   margin: 2rem auto 0 auto;
-  background-color: rgb(203, 207, 200);
-  border: 1px solid black;
+  background-color: rgb(234, 240, 229);
+  border: 1px solid gray;
   border-radius: 6px;
 }
 
@@ -179,7 +180,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh; /* Adjust the height as needed */
+  height: 8vh; /* Adjust the height as needed */
 }
 
 .nutriscore {
